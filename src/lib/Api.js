@@ -1,13 +1,29 @@
 const Api = (name) => {
     let query = `
-    query ($name: String){
-        Media(search: $name, popularity_greater:95555){
-            popularity
-            title {
-                english
-            }
-    }
-}`
+    query($name: String){
+        Page(page:1, perPage:3){
+        media(search: $name, type: ANIME){
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          },
+          id,
+          status,
+          description,
+          episodes,
+          bannerImage,
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+        }
+        }
+        
+      }`
 
     const variables = {
         name: name

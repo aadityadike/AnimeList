@@ -7,6 +7,7 @@ const fetchedStore = createSlice({
     },
     reducers: {
         getFetchData: (state, action) => {
+            state.animeData.pop()
             state.animeData.push(action.payload.data);
         }
     }
