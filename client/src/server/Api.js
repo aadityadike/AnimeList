@@ -1,8 +1,8 @@
 const Api = (name) => {
   let query = `
-  query($name: String, $type: MediaType){
+  query($name: String){
       Page(page:1, perPage:3){
-      media(search: $name, type: $type){
+      media(search: $name, type: ANIME){
         title {
           romaji
           english
@@ -22,8 +22,7 @@ const Api = (name) => {
     }`
 
   const variables = {
-    name: name,
-    type: "ANIME"
+    name: name
   }
 
   const url = 'https://graphql.anilist.co'
