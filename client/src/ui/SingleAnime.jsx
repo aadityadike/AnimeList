@@ -1,33 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ApiForSingleAnime from "../server/ApiForSingleAnime";
+import { getAnimeWithId } from "../api/modules/Singlemedia.api";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 const SingleAnime = () => {
   const [data, setData] = useState("");
   const { id } = useParams();
   useEffect(() => {
-    const getData = ApiForSingleAnime(id);
-    fetchReq(getData);
+    getAnimeWithId(id, setData);
   }, []);
 
-  const fetchReq = (animeApi) => {
-    animeApi
-      .then((res) =>
-        res.json().then((json) => (res.ok ? json : Promise.reject(json)))
-      )
-      .then((data) => setData(data))
-      .catch((err) => console.error(err));
-  };
-  
-  console.log(data.data?.Media.bannerImage);
-
-
+  const title = data.data?.Page?.media[0].title;
+  const description = data.data?.Page?.media[0].description;
+  const img = data.data?.Page?.media[0].bannerImage;
   return (
     <section>
-      <div>{<img src={data.data?.Media.bannerImage}></img>}</div>
+      <div>{<img src={img}></img>}</div>
       <div>
-        <h1>{data.data?.Media?.title?.english}</h1>
-        <p>{data.data?.Media?.description}</p>
+        <h1>{title?.english}</h1>
+        <p>
+          <ReactMarkdown skipHtml={true}>{description}</ReactMarkdown>
+        </p>
       </div>
     </section>
   );

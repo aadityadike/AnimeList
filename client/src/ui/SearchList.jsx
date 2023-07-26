@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const SearchList = () => {
   const anime = useSelector((state) => state.fetchData.animeData);
-
+  
   return (
     <div className="text-center">
       <Box className="flex gap-4">
@@ -19,7 +19,7 @@ const SearchList = () => {
               >
                 <img src={m.coverImage.medium} alt="not found" />
                 <a>
-                  {m.title.english != null ? m.title.english : m.title.romaji}
+                  {m.title.english != null ? m.title.english : m.title.userPreferred}
                 </a>
                 <div className="flex gap-7">
                   <button onClick={() => {}}>
